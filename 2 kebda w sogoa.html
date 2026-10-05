@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>مطعم 2 كبدة وسجق | 2 Kebda & Segok</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --primary: #d90429;
+      --secondary: #ffb703;
+      --dark: #0f0d0e;
+      --card-bg: #1c1819;
+      --card-border: rgba(217, 4, 41, 0.25);
+      --text: #ffffff;
+      --text-muted: #b0a8a9;
+      --vodafone: #e60000;
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
+    body { background-color: var(--dark); color: var(--text); padding-bottom: 100px; overflow-x: hidden; }
+
+    /* Header */
+    header {
+      position: sticky; top: 0; z-index: 1000;
+      background: rgba(15, 13, 14, 0.96); backdrop-filter: blur(10px);
+      border-bottom: 2px solid var(--primary);
+    }
+    nav {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.8rem 1.2rem;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .brand-logo {
+      width: 46px; height: 46px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), #ef233c);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 1.4rem; color: #fff;
+      box-shadow: 0 0 15px rgba(217, 4, 41, 0.7);
+      animation: pulseBrand 2.5s infinite alternate;
+    }
+    @keyframes pulseBrand {
+      0% { transform: scale(1); box-shadow: 0 0 10px rgba(217, 4, 41, 0.5); }
+      100% { transform: scale(1.08); box-shadow: 0 0 25px rgba(255, 183, 3, 0.8); }
+    }
+    .brand-name h1 { font-size: 1.3rem; color: #fff; font-weight: 900; line-height: 1.1; }
+    .brand-name span { font-size: 0.75rem; color: var(--secondary); font-weight: 700; }
+
+    .btn {
+      background: linear-gradient(135deg, var(--primary), #ef233c);
+      color: #fff; padding: 0.55rem 1.2rem; border-radius: 25px;
+      font-weight: 700; border: none; cursor: pointer; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 6px; transition: var(--transition);
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(217, 4, 41, 0.4); }
+
+    /* AI Spotlight Cinema Showcase */
+    .cinema-container {
+      max-width: 1200px; margin: 1.5rem auto 2.5rem; padding: 0 1.2rem;
+    }
+    .cinema-screen {
+      position: relative; height: 420px; border-radius: 20px;
+      background: #000; overflow: hidden; border: 1.5px solid rgba(255, 183, 3, 0.3);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.9);
+    }
+    .stage-backdrop {
+      position: absolute; inset: 0;
+      background: radial-gradient(circle at center, #22080a 0%, #000000 85%);
+      transition: all 1.2s ease;
+    }
+    .spotlight-beam {
+      position: absolute; width: 280px; height: 100%; top: -100px;
+      background: conic-gradient(from 180deg at 50% 0%, rgba(255, 235, 150, 0.25) 0deg, transparent 40deg, transparent 320deg, rgba(255, 235, 150, 0.25) 360deg);
+      filter: blur(20px); transform-origin: top center;
+      animation: rotateSpotlight 6s infinite alternate ease-in-out;
+      pointer-events: none;
+    }
+    @keyframes rotateSpotlight {
+      0% { transform: rotate(-25deg); }
+      100% { transform: rotate(25deg); }
+    }
+    .stage-item-wrapper {
+      position: relative; z-index: 5; text-align: center;
+      perspective: 1000px;
+    }
+    .rotating-plate {
+      width: 280px; height: 180px; margin: 0 auto;
+      background-size: cover; background-position: center; border-radius: 15px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.9), 0 0 30px rgba(255, 183, 3, 0.4);
+      animation: rotatePlatter 8s infinite ease-in-out alternate;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+    @keyframes rotatePlatter {
+      0% { transform: rotateY(-18deg) rotateX(8deg) scale(0.95); }
+      50% { transform: rotateY(0deg) rotateX(0deg) scale(1.05); }
+      100% { transform: rotateY(18deg) rotateX(-8deg) scale(0.95); }
+    }
+    .stage-tag {
+      margin-top: 15px; font-size: 1.4rem; font-weight: 900;
+      color: var(--secondary); text-shadow: 0 0 10px rgba(255, 183, 3, 0.6);
+    }
+    .stage-sub { font-size: 0.95rem; color: #fff; font-weight: 600; }
+
+    /* Categories */
+    .cat-bar {
+      max-width: 1200px; margin: 0 auto 1.5rem; padding: 0 1.2rem;
+      display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none;
+    }
+    .cat-bar::-webkit-scrollbar { display: none; }
+    .cat-pill {
+      background: var(--card-bg); border: 1px solid rgba(255,255,255,0.1);
+      color: #ddd; padding: 0.6rem 1.3rem; border-radius: 20px;
+      font-weight: 700; white-space: nowrap; cursor: pointer; transition: var(--transition);
+    }
+    .cat-pill.active, .cat-pill:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+    /* Menu Grid */
+    .menu-grid {
+      max-width: 1200px; margin: 0 auto; padding: 0 1.2rem;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 1.2rem;
+    }
+    .item-card {
+      background: var(--card-bg); border-radius: 14px;
+      border: 1px solid var(--card-border); padding: 1.2rem;
+      display: flex; flex-direction: column; justify-content: space-between;
+      transition: var(--transition); cursor: pointer;
+    }
+    .item-card:hover { transform: translateY(-4px); border-color: var(--secondary); }
+    .item-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
+    .item-name { font-size: 1.15rem; font-weight: 800; color: #fff; }
+    .item-price { color: var(--secondary); font-size: 1.2rem; font-weight: 900; }
+    .item-desc { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1rem; }
+    .card-actions { display: flex; gap: 8px; }
+    .btn-detail {
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2);
+      color: #fff; padding: 0.5rem 0.8rem; border-radius: 8px; font-weight: 700; cursor: pointer;
+    }
+    .btn-add {
+      flex: 1; background: rgba(217, 4, 41, 0.15); border: 1.5px solid var(--primary);
+      color: #fff; padding: 0.5rem; border-radius: 8px; font-weight: 800; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+    }
+    .btn-add:hover { background: var(--primary); }
+
+    /* Floating Cart */
+    .cart-bar {
+      position: fixed; bottom: 15px; left: 50%; transform: translateX(-50%);
+      background: #191415; border: 2px solid var(--secondary);
+      border-radius: 35px; padding: 0.6rem 1.4rem; display: flex;
+      align-items: center; justify-content: space-between; gap: 1.5rem;
+      width: 90%; max-width: 480px; z-index: 1500; box-shadow: 0 10px 25px rgba(0,0,0,0.8);
+    }
+
+    /* Modals */
+    .modal {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85);
+      z-index: 2000; align-items: center; justify-content: center; padding: 1rem;
+    }
+    .modal.active { display: flex; }
+    .modal-box {
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      border-radius: 16px; max-width: 460px; width: 100%; padding: 1.6rem;
+      max-height: 90vh; overflow-y: auto; position: relative;
+    }
+    .close-modal { position: absolute; top: 12px; left: 16px; font-size: 1.6rem; cursor: pointer; color: #aaa; }
+
+    /* Payment Styles */
+    .payment-option {
+      border: 1.5px solid rgba(255,255,255,0.15); border-radius: 10px;
+      padding: 10px; margin-bottom: 8px; cursor: pointer; display: flex;
+      align-items: center; gap: 10px; transition: var(--transition);
+    }
+    .payment-option.active { border-color: var(--secondary); background: rgba(255, 183, 3, 0.1); }
+    .vodafone-box {
+      display: none; background: #2b0004; border: 1px dashed var(--vodafone);
+      padding: 12px; border-radius: 10px; margin: 10px 0; font-size: 0.88rem;
+    }
+    .copy-btn {
+      background: var(--vodafone); color: #fff; border: none; padding: 4px 10px;
+      border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 0.8rem; margin-right: 6px;
+    }
+
+    .input-group { margin-bottom: 0.8rem; }
+    .input-group label { display: block; font-size: 0.82rem; margin-bottom: 4px; color: #ccc; }
+    .input-group input, .input-group select, .input-group textarea {
+      width: 100%; padding: 0.65rem 0.8rem; background: #110d0e;
+      border: 1px solid rgba(217, 4, 41, 0.3); border-radius: 8px; color: #fff; font-size: 0.9rem;
+    }
+
+    /* Branches */
+    .branches-section {
+      max-width: 1200px; margin: 2.5rem auto 1rem; padding: 1.5rem 1.2rem;
+      background: var(--card-bg); border-radius: 16px; border: 1px solid var(--card-border);
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;
+    }
+    .branch-item h4 { color: var(--secondary); font-size: 1.15rem; margin-bottom: 6px; }
+    .branch-item p { color: #ddd; font-size: 0.9rem; margin-bottom: 4px; }
+    .branch-links { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+    .branch-tag {
+      background: #271f21; border: 1px solid rgba(255,255,255,0.1);
+      padding: 4px 10px; border-radius: 8px; color: #fff; font-size: 0.85rem; text-decoration: none;
+    }
+
+    footer { text-align: center; padding: 2rem; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid rgba(255,255,255,0.1); }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header>
+    <nav>
+      <a href="#" class="brand">
+        <div class="brand-logo">2</div>
+        <div class="brand-name">
+          <h1>مطعم 2 كبدة وسجق</h1>
+          <span>أصل الكبدة والسجق في الغربية</span>
+        </div>
+      </a>
+      <button onclick="openCartModal()" class="btn"><i class="fas fa-shopping-basket"></i> السلة</button>
+    </nav>
+  </header>
+
+  <!-- AI 3D Cinematic Spotlight Showcase -->
+  <section class="cinema-container">
+    <div class="cinema-screen">
+      <div class="stage-backdrop"></div>
+      <div class="spotlight-beam"></div>
+      <div class="stage-item-wrapper">
+        <div class="rotating-plate" id="showcaseImage" style="background-image: url('https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=600&q=80');"></div>
+        <div class="stage-tag" id="showcaseTitle">ساندوتش كبدة إسكندراني مخصوص</div>
+        <div class="stage-sub" id="showcaseSub">شرائح كبدة متبلة على الجريل بالليمون والفلفل الحار</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories Bar -->
+  <div class="cat-bar">
+    <button class="cat-pill active" onclick="filterMenu('all')">الكل</button>
+    <button class="cat-pill" onclick="filterMenu('meat')">ساندوتشات اللحوم</button>
+    <button class="cat-pill" onclick="filterMenu('chicken')">ساندوتشات الفراخ</button>
+    <button class="cat-pill" onclick="filterMenu('hawawshi')">الحواوشي</button>
+    <button class="cat-pill" onclick="filterMenu('meals')">وجبات وتوفير وريزو</button>
+    <button class="cat-pill" onclick="filterMenu('breakfast')">ساندوتشات فطار وتحلية</button>
+    <button class="cat-pill" onclick="filterMenu('sides')">أصناف جانبية وصوصات</button>
+  </div>
+
+  <!-- Menu Grid -->
+  <div class="menu-grid" id="menuContainer"></div>
+
+  <!-- Branches & Info Section -->
+  <section class="branches-section">
+    <div class="branch-item">
+      <h4>📍 فرع سمنود</h4>
+      <p>مدخل سمنود - أمام البنك الزراعي المصري</p>
+      <div class="branch-links">
+        <a href="tel:01070510500" class="branch-tag">📱 01070510500</a>
+        <a href="tel:0402386422" class="branch-tag">☎️ 0402386422</a>
+      </div>
+    </div>
+
+    <div class="branch-item">
+      <h4>📍 فرع المحلة الكبرى</h4>
+      <p>المحلة الكبرى (قسم 2) - شارع الفريق رضا حافظ - أمام بنزينة المشحمة</p>
+      <div class="branch-links">
+        <a href="tel:01011009725" class="branch-tag">📱 01011009725</a>
+        <a href="https://maps.app.goo.gl/hL1eZ1rzA1kUvYd1A" target="_blank" class="branch-tag" style="border-color: var(--secondary); color: var(--secondary);">
+          <i class="fas fa-map-marker-alt"></i> فتح اللوكيشن على خرائط جوجل
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Floating Cart Bar -->
+  <div class="cart-bar" id="cartBar" style="display: none;">
+    <div>
+      <span style="font-weight: bold; color: var(--secondary); font-size: 1.1rem;" id="cartBarQty">0</span> أصناف |
+      الإجمالي: <span style="font-weight: bold; color: #fff;" id="cartBarTotal">0</span> ج.م
+    </div>
+    <button class="btn" onclick="openCartModal()" style="padding: 0.4rem 1.1rem; font-size: 0.9rem;">
+      إتمام الطلب <i class="fas fa-arrow-left"></i>
+    </button>
+  </div>
+
+  <!-- Single Product Details Modal -->
+  <div class="modal" id="itemModal">
+    <div class="modal-box">
+      <span class="close-modal" onclick="closeItemModal()">&times;</span>
+      <div id="itemModalBody"></div>
+    </div>
+  </div>
+
+  <!-- Checkout Cart Modal -->
+  <div class="modal" id="cartModal">
+    <div class="modal-box">
+      <span class="close-modal" onclick="closeCartModal()">&times;</span>
+      <h3 style="color: var(--secondary); text-align: center; margin-bottom: 1rem;">سلة مشترياتك 🛒</h3>
+
+      <div id="cartItemsList" style="max-height: 160px; overflow-y: auto; border-bottom: 1px dashed rgba(255,255,255,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;"></div>
+
+      <div style="display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 1rem;">
+        <span>إجمالي الحساب:</span>
+        <span style="color: var(--secondary); font-size: 1.25rem;" id="checkoutTotal">0 ج.م</span>
+      </div>
+
+      <form id="orderForm" onsubmit="handleOrderSubmit(event)">
+        <div class="input-group">
+          <label>اختر الفرع الأقرب لك:</label>
+          <select id="orderBranch">
+            <option value="فرع سمنود (01070510500)">فرع سمنود - أمام البنك الزراعي</option>
+            <option value="فرع المحلة (01011009725)">فرع المحلة - أمام بنزينة المشحمة</option>
+          </select>
+        </div>
+
+        <div class="input-group">
+          <label>الاسم بالكامل:</label>
+          <input type="text" id="custName" placeholder="اكتب اسمك" required />
+        </div>
+
+        <div class="input-group">
+          <label>رقم الهاتف للتواصل:</label>
+          <input type="tel" id="custPhone" placeholder="01xxxxxxxxx" required />
+        </div>
+
+        <div class="input-group">
+          <label>طريقة الاستلام:</label>
+          <select id="deliveryType" onchange="toggleAddressBox(this.value)">
+            <option value="دليفري (توصيل للمنزل)">دليفري (توصيل للمنزل)</option>
+            <option value="تيك أواي (استلام من الفرع)">تيك أواي (استلام من الفرع)</option>
+            <option value="تناول داخل الصالة">تناول داخل المطعم</option>
+          </select>
+        </div>
+
+        <div class="input-group" id="addressInputWrap">
+          <label>العنوان بالتفصيل:</label>
+          <input type="text" id="custAddress" placeholder="الشارع، رقم العمارة، علامة مميزة" />
+        </div>
+
+        <!-- طرق الدفع المزدوجة -->
+        <div style="margin: 1.2rem 0;">
+          <label style="display:block; font-size: 0.85rem; font-weight: bold; margin-bottom: 8px; color: var(--secondary);">
+            💳 اختر طريقة الدفع:
+          </label>
+          
+          <div class="payment-option active" id="payCOD" onclick="selectPayment('cod')">
+            <input type="radio" name="payMethod" value="الدفع عند الاستلام (كاش)" checked />
+            <div>
+              <strong>💵 الدفع عند الاستلام (كاش)</strong>
+              <div style="font-size: 0.78rem; color: #bbb;">ادفع كاش لمندوب التوصيل أو عند الاستلام</div>
+            </div>
+          </div>
+
+          <div class="payment-option" id="payVodafone" onclick="selectPayment('vodafone')">
+            <input type="radio" name="payMethod" value="فودافون كاش" />
+            <div>
+              <strong style="color: #ff4d6d;">📱 محفظة فودافون كاش (Vodafone Cash)</strong>
+              <div style="font-size: 0.78rem; color: #bbb;">تحويل فوري قبل خروج الأوردر لتأكيد الطلب</div>
+            </div>
+          </div>
+
+          <!-- صندوق تفاصيل فودافون كاش -->
+          <div class="vodafone-box" id="vodafoneDetails">
+            <p style="margin-bottom: 6px;">حول المبلغ لحساب المحفظة التالي:</p>
+            <div style="display: flex; align-items: center; justify-content: space-between; background: #190003; padding: 6px 10px; border-radius: 6px; margin-bottom: 8px;">
+              <strong style="font-size: 1.1rem; color: #fff;" id="vfNum">01011009725</strong>
+              <button type="button" class="copy-btn" onclick="copyVfNumber()">نسخ الرقم</button>
+            </div>
+            <div class="input-group" style="margin-bottom: 0;">
+              <label>رقم المحفظة المحول منها أو رقم العملية:</label>
+              <input type="text" id="vfTransaction" placeholder="اكتب رقم الموبايل المحول منه" />
+            </div>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label>ملاحظات على الأوردر:</label>
+          <textarea id="custNotes" rows="2" placeholder="طحينة زيادة، بدون شطة، ليمون زيادة..."></textarea>
+        </div>
+
+        <button type="submit" class="btn" style="width: 100%; justify-content: center; padding: 0.8rem; font-size: 1rem;">
+          <i class="fas fa-check-circle"></i> تأكيد وإرسال الأوردر فوراً
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    <p>جميع الحقوق محفوظة &copy; 2026 - مطعم <strong>2 كبدة وسجق</strong></p>
+  </footer>
+
+  <script>
+    // المشهد السينمائي للذكاء الاصطناعي (AI Cinema Rotation)
+    const showcaseItems = [
+      { title: "ساندوتش كبدة إسكندراني مخصوص", sub: "كبدة متبلة على الجريل بالليمون والفلفل الحار", img: "https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=600&q=80" },
+      { title: "ساندوتش سجق بلدي دبس رمان", sub: "سجق مشوي غرقان صوص دبس رمان وموتزاريلا", img: "https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=600&q=80" },
+      { title: "حواوشي بلدي وش بيتزا", sub: "لحمة متبلة بالخلطة السرية مع ميكس جبن وفلفل ألوان", img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80" },
+      { title: "ساندوتش سوبر كرانشي دجاج", sub: "قطع استربس مقرمشة مع رومي مدخن وصوص شيدر", img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=600&q=80" }
+    ];
+    let showIdx = 0;
+    setInterval(() => {
+      showIdx = (showIdx + 1) % showcaseItems.length;
+      document.getElementById('showcaseImage').style.backgroundImage = `url('${showcaseItems[showIdx].img}')`;
+      document.getElementById('showcaseTitle').innerText = showcaseItems[showIdx].title;
+      document.getElementById('showcaseSub').innerText = showcaseItems[showIdx].sub;
+    }, 4000);
+
+    // بيانات منيو مطعم 2 كبدة وسجق المفرغة بدقة
+    const menuData = [
+      // ساندوتشات اللحوم
+      { id: 1, cat: 'meat', hasSize: true, name: 'ساندوتش كبدة إسكندراني', prices: { m: 35, l: 45 }, desc: 'كبدة بلدي طازجة متبلة بالثوم والليمون والفلفل الحامي' },
+      { id: 2, cat: 'meat', hasSize: true, name: 'ساندوتش كبدة دبس رمان', prices: { m: 40, l: 50 }, desc: 'شرائح كبدة مشوحة مع صوص دبس رمان مزز' },
+      { id: 3, cat: 'meat', hasSize: true, name: 'ساندوتش سجق بلدي جريل', prices: { m: 40, l: 50 }, desc: 'سجق بلدي بالخلطة الخاصة مع بصل وطماطم وفلفل' },
+      { id: 4, cat: 'meat', hasSize: true, name: 'ساندوتش سجق دبس رمان', prices: { m: 45, l: 55 }, desc: 'سجق متبل مشوي مع صوص دبس الرمان الفاخر' },
+      { id: 5, cat: 'meat', hasSize: true, name: 'ساندوتش سجق بالجبنة', prices: { m: 45, l: 55 }, desc: 'سجق مشوي مغطى بجبنة شيدر وموتزاريلا سايحة' },
+      { id: 6, cat: 'meat', hasSize: true, name: 'ساندوتش سجق بسطرمة', prices: { m: 50, l: 60 }, desc: 'ميكس سجق بلدي مع شرائح بسطرمة وموتزاريلا' },
+      { id: 7, cat: 'meat', hasSize: true, name: 'ساندوتش كفتة مشوية جريل', prices: { m: 55, l: 65 }, desc: 'كفتة لحمة بلدي مشوية على الجريل مع صوص طحينة' },
+      { id: 8, cat: 'meat', hasSize: false, name: 'كفتة راب سوري', price: 55, desc: 'رول كفتة في عيش صاج مع خضار وطحينة' },
+      { id: 9, cat: 'meat', hasSize: true, name: 'هوت دوج إسكندراني', prices: { m: 55, l: 65 }, desc: 'قطع هوت دوج بالصلصة الإسكندرانية والفلفل' },
+      { id: 10, cat: 'meat', hasSize: false, name: 'برجر كلاسيك لحم بلدي', price: 45, desc: 'برجر مشوي مع خس وطماطم وصوصات' },
+      { id: 11, cat: 'meat', hasSize: false, name: 'دبل تشيز برجر لحم', price: 80, desc: 'قطعتين برجر لحم مع طبقتين شيدر وصوص برجر' },
+
+      // ساندوتشات الفراخ
+      { id: 20, cat: 'chicken', hasSize: true, name: 'ساندوتش زنجر سوبريم', prices: { m: 95, l: 105 }, desc: 'دجاج مقرمش حار + جبنة شيدر + بيف مدخن' },
+      { id: 21, cat: 'chicken', hasSize: true, name: 'سوبر كرانشي', prices: { m: 95, l: 105 }, desc: 'استربس مقرمش + رومي مدخن + موتزاريلا سايحة' },
+      { id: 22, cat: 'chicken', hasSize: true, name: 'شيش طاووق جريل', prices: { m: 95, l: 105 }, desc: 'أوراك دجاج متبلة مشوية مع فلفل وبصل وطحينة' },
+      { id: 23, cat: 'chicken', hasSize: true, name: 'تشكن بانيه مقرمش', prices: { m: 95, l: 105 }, desc: 'صدور دجاج بانيه متبلة + جبنة شيدر + صوص جبنة' },
+      { id: 24, cat: 'chicken', hasSize: true, name: 'تشكن رانش', prices: { m: 95, l: 105 }, desc: 'قطع فراخ مقرمشة + صوص رانش غني + خس طازج' },
+      { id: 25, cat: 'chicken', hasSize: true, name: 'تشكن باربيكيو', prices: { m: 100, l: 110 }, desc: 'فراخ مشوية + هوت دوج + صوص باربيكيو مدخن + موتزاريلا' },
+      { id: 26, cat: 'chicken', hasSize: false, name: 'ساندوتش كوردن بلو', price: 110, desc: 'رول فراخ محشوة هوت دوج ورومي وزيتون وشيدر' },
+      { id: 27, cat: 'chicken', hasSize: false, name: 'تشكن رول بسطرمة', price: 110, desc: 'فراخ محشية بسطرمة وموتزاريلا وخس ومايونيز' },
+
+      // الحواوشي
+      { id: 40, cat: 'hawawshi', hasSize: false, name: 'حواوشي لحمة بلدي', price: 60, desc: 'رغيف بلدي مقرمش محشو بلحمة بلدي وتوابل خاصة' },
+      { id: 41, cat: 'hawawshi', hasSize: false, name: 'حواوشي لحمة بالجبنة الشيدر', price: 65, desc: 'حواوشي لحمة مع ميكس جبن شيدر ذائبة' },
+      { id: 42, cat: 'hawawshi', hasSize: false, name: 'حواوشي سجق بلدي', price: 75, desc: 'حواوشي محشو بالسجق المتبل والموتزاريلا' },
+      { id: 43, cat: 'hawawshi', hasSize: false, name: 'حواوشي بسطرمة وموتزاريلا', price: 80, desc: 'بسطرمة إسكندراني مع جبنة موتزاريلا وفيرة' },
+
+      // وجبات وتوفير وريزو
+      { id: 50, cat: 'meals', hasSize: false, name: 'وجبة كفتة مشوية جريل', price: 140, desc: 'تقدم مع أرز بسمتي + بطاطس + كول سلو + عيش وطحينة' },
+      { id: 51, cat: 'meals', hasSize: false, name: 'وجبة ميكس جريل (كفتة وشيش وسجق)', price: 155, desc: 'أرز بسمتي فاخر مع مشكل مشاوي وكول سلو' },
+      { id: 52, cat: 'meals', hasSize: false, name: 'وجبة شيش طاووق', price: 140, desc: 'أسياخ شيش طاووق مشوي مع أرز وكول سلو وصوص' },
+      { id: 53, cat: 'meals', hasSize: false, name: 'وجبة توفير: أرز بسمتي كبدة', price: 75, desc: 'طبق أرز بسمتي مبهر مع كبدة إسكندراني وصوص' },
+      { id: 54, cat: 'meals', hasSize: false, name: 'وجبة توفير: أرز بسمتي سجق', price: 85, desc: 'أرز بسمتي مع سجق بلدي مشوح' },
+      { id: 55, cat: 'meals', hasSize: false, name: 'ريزو فراخ مقرمشة', price: 105, desc: 'أرز ريزو غني بقطع الاستربس وصوص باربيكيو' },
+
+      // ساندوتشات فطار وتحلية
+      { id: 60, cat: 'breakfast', hasSize: false, name: 'ساندوتش بيض بسطرمة', price: 35, desc: 'بيض مقلي بالزبدة مع شرائح بسطرمة بلدي' },
+      { id: 61, cat: 'breakfast', hasSize: false, name: 'ساندوتش بيض سجق', price: 35, desc: 'بيض مخفوق مع سجق متبل' },
+      { id: 62, cat: 'breakfast', hasSize: false, name: 'ساندوتش بطاطس سوري بالجبنة', price: 50, desc: 'عيش صاج محشو بطاطس بوم فريت وثومية وموتزاريلا' },
+      { id: 63, cat: 'breakfast', hasSize: false, name: 'ساندوتش سكلانس حلواني', price: 40, desc: 'قشطة بلدي + حلاوة طحينية + مربى + عسل' },
+
+      // أصناف جانبية وصوصات
+      { id: 70, cat: 'sides', hasSize: false, name: 'بطاطس فرسكس بالجبنة', price: 70, desc: 'بطاطس مقرمشة مغطاة بصوص جبنة شيدر غني' },
+      { id: 71, cat: 'sides', hasSize: false, name: 'بطاطس سجق بالجبنة', price: 85, desc: 'بطاطس مقلية مع قطع سجق وجبنة سايحة' },
+      { id: 72, cat: 'sides', hasSize: false, name: 'كومبو بطاطس + بيبسي كانز', price: 55, desc: 'باكيت بطاطس كبير مع كانز بارد' },
+      { id: 73, cat: 'sides', hasSize: false, name: 'صوص رانش / تومية / شيدر / طحينة', price: 20, desc: 'علبة صوص خارجية حسب اختيارك' }
+    ];
+
+    let cart = [];
+    let selectedItemSizes = {};
+
+    function renderMenu(items) {
+      const container = document.getElementById('menuContainer');
+      container.innerHTML = items.map(item => {
+        if (item.hasSize) {
+          const currentSize = selectedItemSizes[item.id] || 'm';
+          const currentPrice = item.prices[currentSize];
+          return `
+            <div class="item-card">
+              <div>
+                <div class="item-card-header">
+                  <span class="item-name">${item.name}</span>
+                  <span class="item-price" id="price-tag-${item.id}">${currentPrice} ج.م</span>
+                </div>
+                <p class="item-desc">${item.desc}</p>
+                <div style="display:flex; gap:8px; margin-bottom:12px; background:#110d0e; padding:4px; border-radius:8px;">
+                  <button type="button" style="flex:1; border:none; padding:4px; border-radius:6px; cursor:pointer; font-weight:bold; background:${currentSize==='m'?'var(--primary)':'transparent'}; color:${currentSize==='m'?'#fff':'#aaa'};" onclick="setItemSize(${item.id}, 'm')">وسط M (${item.prices.m}ج)</button>
+                  <button type="button" style="flex:1; border:none; padding:4px; border-radius:6px; cursor:pointer; font-weight:bold; background:${currentSize==='l'?'var(--primary)':'transparent'}; color:${currentSize==='l'?'#fff':'#aaa'};" onclick="setItemSize(${item.id}, 'l')">كبير L (${item.prices.l}ج)</button>
+                </div>
+              </div>
+              <div class="card-actions">
+                <button class="btn-detail" onclick="openItemDetails(${item.id})"><i class="fas fa-eye"></i> التفاصيل</button>
+                <button class="btn-add" onclick="addSizedToCart(${item.id})"><i class="fas fa-plus"></i> إضافة للسلة</button>
+              </div>
+            </div>
+          `;
+        } else {
+          return `
+            <div class="item-card">
+              <div>
+                <div class="item-card-header">
+                  <span class="item-name">${item.name}</span>
+                  <span class="item-price">${item.price} ج.م</span>
+                </div>
+                <p class="item-desc">${item.desc}</p>
+              </div>
+              <div class="card-actions">
+                <button class="btn-detail" onclick="openItemDetails(${item.id})"><i class="fas fa-eye"></i> التفاصيل</button>
+                <button class="btn-add" onclick="addFixedToCart(${item.id})"><i class="fas fa-plus"></i> إضافة للسلة</button>
+              </div>
+            </div>
+          `;
+        }
+      }).join('');
+    }
+
+    function setItemSize(id, size) {
+      selectedItemSizes[id] = size;
+      const item = menuData.find(i => i.id === id);
+      document.getElementById(`price-tag-${id}`).innerText = `${item.prices[size]} ج.م`;
+      renderMenu(currentItems());
+    }
+
+    let activeFilter = 'all';
+    function filterMenu(cat) {
+      activeFilter = cat;
+      document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
+      event.target.classList.add('active');
+      renderMenu(currentItems());
+    }
+
+    function currentItems() {
+      if (activeFilter === 'all') return menuData;
+      return menuData.filter(i => i.cat === activeFilter);
+    }
+
+    // Modal لكل صنف
+    function openItemDetails(id) {
+      const item = menuData.find(i => i.id === id);
+      const isSized = item.hasSize;
+      const priceText = isSized ? `وسط: ${item.prices.m} ج.م | كبير: ${item.prices.l} ج.م` : `${item.price} ج.م`;
+
+      document.getElementById('itemModalBody').innerHTML = `
+        <h3 style="color:var(--secondary); margin-bottom:6px;">${item.name}</h3>
+        <div style="font-size:1.2rem; font-weight:bold; color:#fff; margin-bottom:12px;">${priceText}</div>
+        <p style="color:#ddd; margin-bottom:1.2rem; font-size:0.95rem; line-height:1.6;">${item.desc}</p>
+        
+        ${item.cat === 'hawawshi' ? `
+          <label style="display:flex; align-items:center; gap:8px; margin-bottom:12px; color:#ffca3a; font-weight:bold; cursor:pointer;">
+            <input type="checkbox" id="extraPizzaTop" /> إضافة وش بيتزا (+20 ج.م)
+          </label>
+        ` : ''}
+
+        <button class="btn" style="width:100%; justify-content:center; padding:0.75rem;" onclick="addFromModal(${item.id})">
+          <i class="fas fa-cart-plus"></i> إضافة هذا الصنف للأوردر
+        </button>
+      `;
+      document.getElementById('itemModal').classList.add('active');
+    }
+
+    function closeItemModal() {
+      document.getElementById('itemModal').classList.remove('active');
+    }
+
+    function addFromModal(id) {
+      const item = menuData.find(i => i.id === id);
+      let extraTop = false;
+      const extraCheck = document.getElementById('extraPizzaTop');
+      if (extraCheck && extraCheck.checked) extraTop = true;
+
+      if (item.hasSize) {
+        const size = selectedItemSizes[item.id] || 'm';
+        const price = item.prices[size];
+        const title = `${item.name} (${size === 'm' ? 'وسط M' : 'كبير L'})`;
+        pushToCart(title, price);
+      } else {
+        const price = item.price + (extraTop ? 20 : 0);
+        const title = `${item.name}${extraTop ? ' + وش بيتزا' : ''}`;
+        pushToCart(title, price);
+      }
+      closeItemModal();
+    }
+
+    function addSizedToCart(id) {
+      const item = menuData.find(i => i.id === id);
+      const size = selectedItemSizes[id] || 'm';
+      const title = `${item.name} (${size === 'm' ? 'وسط M' : 'كبير L'})`;
+      pushToCart(title, item.prices[size]);
+    }
+
+    function addFixedToCart(id) {
+      const item = menuData.find(i => i.id === id);
+      pushToCart(item.name, item.price);
+    }
+
+    function pushToCart(name, price) {
+      const existing = cart.find(i => i.name === name);
+      if (existing) {
+        existing.qty++;
+      } else {
+        cart.push({ id: Date.now() + Math.random(), name, price, qty: 1 });
+      }
+      refreshCart();
+    }
+
+    function changeCartQty(id, delta) {
+      const item = cart.find(i => i.id === id);
+      if (item) {
+        item.qty += delta;
+        if (item.qty <= 0) cart = cart.filter(i => i.id !== id);
+      }
+      refreshCart();
+      renderCartItems();
+    }
+
+    function refreshCart() {
+      const totalCount = cart.reduce((s, i) => s + i.qty, 0);
+      const totalPrice = cart.reduce((s, i) => s + (i.price * i.qty), 0);
+
+      document.getElementById('cartBarQty').innerText = totalCount;
+      document.getElementById('cartBarTotal').innerText = totalPrice;
+      document.getElementById('checkoutTotal').innerText = `${totalPrice} ج.م`;
+      document.getElementById('cartBar').style.display = totalCount > 0 ? 'flex' : 'none';
+    }
+
+    function openCartModal() {
+      if (cart.length === 0) {
+        alert("سلة الطلبات فارغة! أضف بعض الوجبات أولاً.");
+        return;
+      }
+      renderCartItems();
+      document.getElementById('cartModal').classList.add('active');
+    }
+
+    function closeCartModal() {
+      document.getElementById('cartModal').classList.remove('active');
+    }
+
+    function renderCartItems() {
+      const container = document.getElementById('cartItemsList');
+      if (cart.length === 0) {
+        container.innerHTML = "<p style='text-align:center; color:#888;'>السلة فارغة</p>";
+        closeCartModal();
+        return;
+      }
+      container.innerHTML = cart.map(i => `
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; font-size:0.9rem;">
+          <div>
+            <strong>${i.name}</strong>
+            <div style="color:var(--secondary); font-size:0.8rem;">${i.price} ج.م × ${i.qty} = ${i.price * i.qty} ج.م</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px;">
+            <button type="button" style="background:#2b2224; border:1px solid var(--primary); color:#fff; width:24px; height:24px; border-radius:4px; cursor:pointer;" onclick="changeCartQty(${i.id}, -1)">-</button>
+            <span>${i.qty}</span>
+            <button type="button" style="background:#2b2224; border:1px solid var(--primary); color:#fff; width:24px; height:24px; border-radius:4px; cursor:pointer;" onclick="changeCartQty(${i.id}, 1)">+</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function toggleAddressBox(type) {
+      document.getElementById('addressInputWrap').style.display = type.includes('توصيل') ? 'block' : 'none';
+    }
+
+    // إدارة الدفع
+    let selectedPayType = 'cod';
+    function selectPayment(type) {
+      selectedPayType = type;
+      document.getElementById('payCOD').classList.toggle('active', type === 'cod');
+      document.getElementById('payVodafone').classList.toggle('active', type === 'vodafone');
+      document.getElementById('vodafoneDetails').style.display = type === 'vodafone' ? 'block' : 'none';
+    }
+
+    function copyVfNumber() {
+      const num = document.getElementById('vfNum').innerText;
+      navigator.clipboard.writeText(num);
+      alert("تم نسخ رقم فودافون كاش: " + num);
+    }
+
+    // إرسال الطلب وحساب الفاتورة وربطه مع بوت التليجرام الخاص بـ 2 كبدة وسجق
+    async function handleOrderSubmit(e) {
+      e.preventDefault();
+
+      const branch = document.getElementById('orderBranch').value;
+      const name = document.getElementById('custName').value;
+      const phone = document.getElementById('custPhone').value;
+      const type = document.getElementById('deliveryType').value;
+      const address = document.getElementById('custAddress').value || 'استلام من الفرع';
+      const notes = document.getElementById('custNotes').value || 'لا يوجد';
+      const total = cart.reduce((s, i) => s + (i.price * i.qty), 0);
+
+      let payInfo = "💵 الدفع عند الاستلام (كاش)";
+      if (selectedPayType === 'vodafone') {
+        const trans = document.getElementById('vfTransaction').value || 'لم يُحدد';
+        payInfo = `📱 فودافون كاش (رقم المحول منه / العملية: ${trans})`;
+      }
+
+      let itemsText = "";
+      cart.forEach((i, idx) => {
+        itemsText += `${idx + 1}. *${i.name}* (عدد ${i.qty}) -> ${i.price * i.qty} ج.م\n`;
+      });
+
+      const message = 
+`🥩 *أوردر جديد - مطعم 2 كبدة وسجق* 🥩
+----------------------------------
+📍 *الفرع:* ${branch}
+👤 *الاسم:* ${name}
+📱 *الهاتف:* ${phone}
+🛵 *الاستلام:* ${type}
+🏠 *العنوان:* ${address}
+💳 *طريقة الدفع:* ${payInfo}
+📝 *ملاحظات:* ${notes}
+----------------------------------
+🛒 *قائمة الطلبات:*
+${itemsText}
+----------------------------------
+💰 *الإجمالي النهائي:* ${total} ج.م`;
+
+      // الربط مع بوت التليجرام الخاص بمطعم 2 كبدة وسجق
+      const TG_BOT_TOKEN = "8853187656:AAGwolXswuoxBuFJc0gNto1A9UIBE148bTE";
+      const TG_CHAT_ID = "5838623474";
+
+      try {
+        const res = await fetch(`https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            chat_id: TG_CHAT_ID,
+            text: message,
+            parse_mode: 'Markdown'
+          })
+        });
+
+        if (res.ok) {
+          alert("🎉 تم تأكيد طلبك بنجاح! تم استلام الأوردر في مطبخ 2 كبدة وسجق وسيتم التجهيز فوراً.");
+          cart = [];
+          refreshCart();
+          closeCartModal();
+        } else {
+          redirectToWhatsApp(phone, message);
+        }
+      } catch (err) {
+        redirectToWhatsApp(phone, message);
+      }
+    }
+
+    function redirectToWhatsApp(phone, text) {
+      alert("جاري تحويل تفاصيل الأوردر للواتساب لتأكيد الطلب مباشرة...");
+      const waUrl = `https://wa.me/201011009725?text=${encodeURIComponent(text)}`;
+      window.location.href = waUrl;
+    }
+
+    // بدء تشغيل المنيو
+    renderMenu(menuData);
+  </script>
+</body>
+</html>
